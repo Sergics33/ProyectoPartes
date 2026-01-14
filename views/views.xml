@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Acción para abrir partes -->
+    <record id="action_open_partes" model="ir.actions.act_window">
+        <field name="name">Partes</field>
+        <field name="res_model">partes.parte</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menú principal -->
+    <menuitem id="menu_principal" name="Partes"/>
+
+    <!-- Submenú: Partes -->
+    <menuitem id="menu_partes" name="Partes" parent="menu_principal" action="action_open_partes"/>
+</odoo>
