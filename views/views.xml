@@ -1,45 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="view_partes_incidencias_tree" model="ir.ui.view">
+        <field name="name">partes.incidencias.tree</field>
+        <field name="model">partes.incidencias</field>
+        <field name="arch" type="xml">
+            <tree string="Partes de Incidencia" decoration-danger="gravedad_sancion == 'muy_grave'" decoration-warning="gravedad_sancion == 'grave'">
+                <field name="fecha"/>
+                <field name="alumno_id"/>
+                <field name="curso"/>
+                <field name="profesor_id"/>
+                <field name="gravedad_sancion" widget="badge" decoration-danger="gravedad_sancion == 'muy_grave'" decoration-warning="gravedad_sancion == 'grave'" decoration-info="gravedad_sancion == 'leve'"/>
+            </tree>
+        </field>
+    </record>
 
-    <record id="action_open_partes" model="ir.actions.act_window">
+    <record id="view_partes_incidencias_form" model="ir.ui.view">
+        <field name="name">partes.incidencias.form</field>
+        <field name="model">partes.incidencias</field>
+        <field name="arch" type="xml">
+            <form string="Crear Parte">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>PARTE DE INCIDENCIA</h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="profesor_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="asignatura" placeholder="Ej. Matemáticas"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="fecha"/>
+                            <field name="aula" placeholder="Ej. A-12"/>
+                        </group>
+                        <group>
+                            <field name="hora" placeholder="Ej. 09:30"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="alumno_id" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="curso" placeholder="Ej. 2º ESO B"/>
+                        </group>
+                    </group>
+
+                    <separator string="Motivo de la sanción"/>
+                    <group>
+                        <group>
+                            <field name="motivo_respeto_profesor"/>
+                            <field name="motivo_respeto_companeros"/>
+                            <field name="motivo_interrumpe"/>
+                        </group>
+                        <group>
+                            <field name="motivo_material"/>
+                            <field name="motivo_amonestaciones"/>
+                            <field name="motivo_itaca"/>
+                            <field name="motivo_otro"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <field name="gravedad_sancion" widget="radio" options="{'horizontal': true}"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Resolución">
+                            <group>
+                                <field name="tarea"/>
+                                <field name="medida_correctora"/>
+                                <field name="comunicacion_padres" widget="radio" options="{'horizontal': true}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_open_partes_principal" model="ir.actions.act_window">
         <field name="name">Gestión de Partes</field>
-        <field name="res_model">partes.parte</field>
+        <field name="res_model">partes.incidencias</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-    <record id="action_open_alumnos" model="ir.actions.act_window">
-        <field name="name">Alumnos</field>
-        <field name="res_model">partes.alumnos</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-    <record id="action_open_profesores" model="ir.actions.act_window">
-        <field name="name">Profesores</field>
-        <field name="res_model">partes.profesores</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-    <record id="action_incidencias_analisis" model="ir.actions.act_window">
+    <record id="action_partes_analisis" model="ir.actions.act_window">
         <field name="name">Análisis de Incidencias</field>
         <field name="res_model">partes.incidencias</field>
         <field name="view_mode">graph,pivot,tree,form</field>
     </record>
 
+    <record id="action_open_alumnos_custom" model="ir.actions.act_window">
+        <field name="name">Alumnos</field>
+        <field name="res_model">partes.alumnos</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_open_profesores_custom" model="ir.actions.act_window">
+        <field name="name">Profesores</field>
+        <field name="res_model">partes.profesores</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <menuitem id="menu_principal_partes" name="App Partes" sequence="10"/>
 
     <menuitem id="menu_cat_partes" name="Partes" parent="menu_principal_partes" sequence="10"/>
-    <menuitem id="menu_item_gestion_partes" name="Gestión de partes" parent="menu_cat_partes" action="action_open_partes" sequence="10"/>
+    <menuitem id="menu_item_gestion_partes" name="Gestión de partes" parent="menu_cat_partes" action="action_open_partes_principal" sequence="10"/>
 
     <menuitem id="menu_cat_tablas" name="Gestión de tablas" parent="menu_principal_partes" sequence="20"/>
-    <menuitem id="menu_item_alumnos" name="Alumnos" parent="menu_cat_tablas" action="action_open_alumnos" sequence="10"/>
-    <menuitem id="menu_item_profesores" name="Profesores" parent="menu_cat_tablas" action="action_open_profesores" sequence="20"/>
+    <menuitem id="menu_item_alumnos" name="Alumnos" parent="menu_cat_tablas" action="action_open_alumnos_custom" sequence="10"/>
+    <menuitem id="menu_item_profesores" name="Profesores" parent="menu_cat_tablas" action="action_open_profesores_custom" sequence="20"/>
 
     <menuitem id="menu_cat_informes" name="Informes" parent="menu_principal_partes" sequence="30"/>
-    <menuitem id="menu_item_inf_grupos" name="Informe por Grupos" parent="menu_cat_informes" action="action_incidencias_analisis" sequence="10"/>
-    <menuitem id="menu_item_inf_alumno" name="Informe por Alumno" parent="menu_cat_informes" action="action_incidencias_analisis" sequence="20"/>
+    <menuitem id="menu_item_inf_grupos" name="Por grupo" parent="menu_cat_informes" action="action_partes_analisis" sequence="10"/>
+    <menuitem id="menu_item_inf_alumno" name="Por alumno" parent="menu_cat_informes" action="action_partes_analisis" sequence="20"/>
 
     <menuitem id="menu_cat_reportes" name="Reportes" parent="menu_principal_partes" sequence="40"/>
-    <menuitem id="menu_item_rep_grupos" name="Por grupo" parent="menu_cat_reportes" action="action_incidencias_analisis" sequence="10"/>
-    <menuitem id="menu_item_rep_alumno" name="Por alumno" parent="menu_cat_reportes" action="action_incidencias_analisis" sequence="20"/>
+    <menuitem id="menu_item_rep_grupos" name="Reporte por grupo" parent="menu_cat_reportes" action="action_partes_analisis" sequence="10"/>
+    <menuitem id="menu_item_rep_alumno" name="Reporte por alumno" parent="menu_cat_reportes" action="action_partes_analisis" sequence="20"/>
 
 </odoo>

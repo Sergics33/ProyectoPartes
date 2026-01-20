@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_partes_alumnos,partes.alumnos,model_partes_alumnos,base.group_user,1,1,1,1
+access_partes_profesores,partes.profesores,model_partes_profesores,base.group_user,1,1,1,1
+access_partes_incidencias,partes.incidencias,model_partes_incidencias,base.group_user,1,1,1,1
