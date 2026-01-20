@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Acción para abrir partes -->
+
     <record id="action_open_partes" model="ir.actions.act_window">
-        <field name="name">Partes</field>
+        <field name="name">Gestión de Partes</field>
         <field name="res_model">partes.parte</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-    <!-- Menú principal -->
-    <menuitem id="menu_principal" name="Partes"/>
+    <record id="action_open_alumnos" model="ir.actions.act_window">
+        <field name="name">Alumnos</field>
+        <field name="res_model">partes.alumnos</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
-    <!-- Submenú: Partes -->
-    <menuitem id="menu_partes" name="Partes" parent="menu_principal" action="action_open_partes"/>
+    <record id="action_open_profesores" model="ir.actions.act_window">
+        <field name="name">Profesores</field>
+        <field name="res_model">partes.profesores</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_incidencias_analisis" model="ir.actions.act_window">
+        <field name="name">Análisis de Incidencias</field>
+        <field name="res_model">partes.incidencias</field>
+        <field name="view_mode">graph,pivot,tree,form</field>
+    </record>
+
+    <menuitem id="menu_principal_partes" name="App Partes" sequence="10"/>
+
+    <menuitem id="menu_cat_partes" name="Partes" parent="menu_principal_partes" sequence="10"/>
+    <menuitem id="menu_item_gestion_partes" name="Gestión de partes" parent="menu_cat_partes" action="action_open_partes" sequence="10"/>
+
+    <menuitem id="menu_cat_tablas" name="Gestión de tablas" parent="menu_principal_partes" sequence="20"/>
+    <menuitem id="menu_item_alumnos" name="Alumnos" parent="menu_cat_tablas" action="action_open_alumnos" sequence="10"/>
+    <menuitem id="menu_item_profesores" name="Profesores" parent="menu_cat_tablas" action="action_open_profesores" sequence="20"/>
+
+    <menuitem id="menu_cat_informes" name="Informes" parent="menu_principal_partes" sequence="30"/>
+    <menuitem id="menu_item_inf_grupos" name="Informe por Grupos" parent="menu_cat_informes" action="action_incidencias_analisis" sequence="10"/>
+    <menuitem id="menu_item_inf_alumno" name="Informe por Alumno" parent="menu_cat_informes" action="action_incidencias_analisis" sequence="20"/>
+
+    <menuitem id="menu_cat_reportes" name="Reportes" parent="menu_principal_partes" sequence="40"/>
+    <menuitem id="menu_item_rep_grupos" name="Por grupo" parent="menu_cat_reportes" action="action_incidencias_analisis" sequence="10"/>
+    <menuitem id="menu_item_rep_alumno" name="Por alumno" parent="menu_cat_reportes" action="action_incidencias_analisis" sequence="20"/>
+
 </odoo>
