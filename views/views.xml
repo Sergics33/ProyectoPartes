@@ -25,8 +25,8 @@
                     </div>
                     <group>
                         <group>
-                            <field name="profesor_id" options="{'no_create': True, 'no_open': True}"/>
-                            <field name="asignatura" placeholder="Ej. Matemáticas"/>
+                        <field name="profesor_id"/>
+                        <field name="asignatura" placeholder="Ej. Matemáticas"/>
                         </group>
                     </group>
                     <group>
@@ -40,7 +40,7 @@
                     </group>
                     <group>
                         <group>
-                            <field name="alumno_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="alumno_id"/>
                         </group>
                         <group>
                             <field name="curso" placeholder="Ej. 2º ESO B"/>
